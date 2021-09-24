@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -42,6 +43,9 @@ public class Proveedor implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "proveedor", cascade = CascadeType.ALL)
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler","proveedor"})
     private List<Producto> productos;
+
+    @ManyToMany(mappedBy = "proveedores")
+    private List<Marca> marcas;
 
     /**
     * 

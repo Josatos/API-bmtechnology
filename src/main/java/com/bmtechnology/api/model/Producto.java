@@ -23,22 +23,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Producto implements Serializable{
-    
-    @Id
+public class Producto implements Serializable {
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_producto;
 
 	@Column(name = "nombre", nullable = false, length = 100)
 	private String nombre;
 
-	@Column(name = "desc_prod", nullable = false)
+	@Column(name = "desc_prod", nullable = false, columnDefinition = "text")
 	private String desc_prod;
 
-	@Column(name = "stock_min")
+	@Column(name = "stock_min", nullable = false)
 	private Integer stock_min;
 
-	@Column(name = "stock_act")
+	@Column(name = "stock_act", nullable = false)
 	private Integer stock_act;
 
 	@Column(name = "precio", nullable = false)
@@ -47,19 +47,22 @@ public class Producto implements Serializable{
 	@Column(name = "foto")
 	private String foto;
 
-    // Relación con tabla categorías
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_categoria")
-	@JsonIgnoreProperties({"hibernateLazyInitializer","handler","productos"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "productos" })
 	private Categoria categoria;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_proveedor")
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler","productos"})
-    private Proveedor proveedor;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_proveedor")
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "productos", "marcas" })
+	private Proveedor proveedor;
 
-    /**
-    * 
-    */
-    private static final long serialVersionUID = 1L;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_marca")
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "productos", "proveedores" })
+	private Marca marca;
+	/**
+	* 
+	*/
+	private static final long serialVersionUID = 1L;
 }
