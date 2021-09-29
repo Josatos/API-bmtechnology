@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -75,6 +76,10 @@ public class Usuario implements Serializable {
     uniqueConstraints = {@UniqueConstraint(columnNames = {"id_usuario","id_rol"})})
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler","usuarios"})
     private List<Rol> roles;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler","usuario"})
+    private List<PedidoVenta> pedidos;
 
     /**
     * 
